@@ -42,7 +42,7 @@ function LoginForm() {
           borderRadius: 2,
           backgroundColor:
             theme.palette.mode === "dark"
-              ? theme.palette.success.dark
+              ? theme.palette.divider
               : theme.palette.grey[100],
         }}
       >

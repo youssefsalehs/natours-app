@@ -1,11 +1,4 @@
-import {
-  Box,
-  Button,
-  Rating,
-  TextField,
-  Typography,
-  useTheme,
-} from "@mui/material";
+import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
 import useSignup from "../../Hooks/useSignup";
 
 import { useFormik } from "formik";
@@ -49,7 +42,7 @@ export default function SignupForm() {
           borderRadius: 2,
           backgroundColor:
             theme.palette.mode === "dark"
-              ? theme.palette.success.dark
+              ? theme.palette.divider
               : theme.palette.grey[100],
         }}
         onSubmit={formik.handleSubmit}
