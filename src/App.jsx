@@ -14,11 +14,24 @@ import TourDetailsPage from "./pages/TourDetails/TourDetailsPage";
 import PageNotFound from "./pages/PageNotFound/PageNotFound";
 import ForgotPasswordPage from "./pages/ForgotPassword/ForgotPasswordPage";
 import ResetPassword from "./pages/ResetPassword/ResetPassword";
+import ProfileLayout from "./pages/ProfileLayout/ProfileLayout";
+import EditForm from "./components/EditForm/EditForm";
+import ChangePassForm from "./components/ChangePassForm/ChangePassForm";
 import ToggleThemeBtn from "./components/ToggleThemeBtn/ToggleThemeBtn";
+import RoleProtectedRoute from "./pages/RoleProtectedRoute/RoleProtectedRoute";
+import DashboardLayout from "./pages/DashboardLayout/DashboardLayout";
+import ToursDash from "./pages/Dashboard/ToursDash";
+import UsersDash from "./pages/Dashboard/UsersDash";
+import ReviewsDash from "./pages/Dashboard/ReviewsDash";
+import AddTour from "./pages/Dashboard/AddTour";
+import EditTour from "./pages/Dashboard/EditTour";
+import DashboardNotFound from "./pages/DashboardNotFound/DashboardNotFound";
+import useAuth from "./Store/useAuth";
 function App() {
   const queryClient = new QueryClient();
   const darkMode = useMyTheme((state) => state.darkMode);
   const theme = getTheme(darkMode);
+  const user = useAuth((state) => state.user);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -52,6 +65,37 @@ function App() {
               <Route path="forgotPassword" element={<ForgotPasswordPage />} />
               <Route path="resetPassword" element={<ResetPassword />} />
               <Route path="*" element={<PageNotFound />} />
+            </Route>
+            <Route
+              path="profile"
+              element={
+                <ProtectedRoute>
+                  <ProfileLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Navigate to="account" replace />} />
+              <Route path="account" element={<EditForm user={user} />} />
+              <Route path="changepassword" element={<ChangePassForm />} />
+            </Route>
+            <Route
+              path="dashboard"
+              element={
+                <ProtectedRoute>
+                  <RoleProtectedRoute allowedRoles={"admin"}>
+                    <DashboardLayout />
+                  </RoleProtectedRoute>
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Navigate to="Tours" replace />} />
+              <Route path="Tours" element={<ToursDash />} />
+              <Route path="Users" element={<UsersDash />} />
+              <Route path="Reviews" element={<ReviewsDash />} />
+              <Route path="Bookings" element={<></>} />
+              <Route path="addTour" element={<AddTour />} />
+              <Route path="editTour/:id" element={<EditTour />} />
+              <Route path="*" element={<DashboardNotFound />} />
             </Route>
           </Routes>
         </BrowserRouter>

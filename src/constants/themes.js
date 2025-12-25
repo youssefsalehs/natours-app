@@ -4,17 +4,18 @@ export const getTheme = (darkMode) =>
   createTheme({
     palette: {
       mode: darkMode ? "dark" : "light",
+
       primary: {
-        main: darkMode ? "#1de9b6" : "#00bfa5",
-        light: darkMode ? "#64ffda" : "#26a69a",
-        dark: darkMode ? "#00bfa5" : "#00796b",
+        main: darkMode ? "#81c784" : "#2e7d32",
+        light: darkMode ? "#a5d6a7" : "#60ad5e",
+        dark: darkMode ? "#519657" : "#005005",
         contrastText: "#ffffff",
       },
 
       secondary: {
-        main: darkMode ? "#ff7043" : "#ff5722",
-        light: darkMode ? "#ffab91" : "#ff8a65",
-        dark: darkMode ? "#f4511e" : "#e64a19",
+        main: darkMode ? "#aed581" : "#8bc34a",
+        light: darkMode ? "#dce775" : "#cddc39",
+        dark: darkMode ? "#7da453" : "#689f38",
         contrastText: "#ffffff",
       },
 
@@ -25,14 +26,14 @@ export const getTheme = (darkMode) =>
       },
 
       text: {
-        primary: darkMode ? "#e0f7fa" : "#004d40",
-        secondary: darkMode ? "#80cbc4" : "#00695c",
-        disabled: darkMode ? "#607d8b" : "#9e9e9e",
+        primary: darkMode ? "#e8f5e9" : "#1b5e20",
+        secondary: darkMode ? "#c8e6c9" : "#2e7d32",
+        disabled: darkMode ? "#78909c" : "#9e9e9e",
       },
 
       divider: darkMode ? "#37474f" : "#e0e0e0",
 
-      info: { main: darkMode ? "#29b6f6" : "#0288d1" },
+      info: { main: darkMode ? "#4fc3f7" : "#0288d1" },
       success: { main: darkMode ? "#66bb6a" : "#2e7d32" },
       warning: { main: darkMode ? "#ffa726" : "#f57c00" },
       error: { main: darkMode ? "#ef5350" : "#d32f2f" },
