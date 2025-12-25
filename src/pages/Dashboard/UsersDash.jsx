@@ -19,7 +19,7 @@ import {
 import { useTheme } from "@mui/material/styles";
 import { useState } from "react";
 import { FaRegEye } from "react-icons/fa";
-import useFetchUsers from "../../Hooks/UseFetchUsers";
+import useFetchUsers from "../../Hooks/useFetchUsers";
 import { Link } from "react-router-dom";
 
 import ToggleBtn from "../../components/ToggleBtn/ToggleBtn";
