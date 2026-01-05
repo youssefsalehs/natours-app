@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 import api from "../api/axiosconfig";
 import { useNavigate } from "react-router-dom";
 import useAuth from "../Store/useAuth";
+import toast from "react-hot-toast";
 function useChangePassword() {
   const token = useAuth((state) => state.token);
   console.log(token);
@@ -20,18 +21,17 @@ function useChangePassword() {
     onSuccess: (result) => {
       const newToken = result.token;
       const user = result.data.user;
-
       login(user, newToken);
-
       navigate("/");
+      toast.success("password is changed");
     },
     onError: (err) => {
       if (err.response?.status === 401) {
-        alert("Current password is incorrect");
+        toast.error("Current password is incorrect");
       } else if (err.response?.status === 403) {
-        alert("You are not authorized");
+        toast.error("You are not authorized");
       } else {
-        alert("Something went wrong");
+        toast.error("Something went wrong");
       }
     },
   });

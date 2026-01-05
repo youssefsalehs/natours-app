@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../api/axiosconfig";
 import { useMutation } from "@tanstack/react-query";
 import useAuth from "../Store/useAuth";
+import toast from "react-hot-toast";
 
 function useResetPass() {
   const navigate = useNavigate();
@@ -21,9 +22,10 @@ function useResetPass() {
       const user = result.data.user;
       login(user, token);
       navigate("/");
+      toast.success("password is reset");
     },
     onError: (err) => {
-      console.error("Reset password failed:", err);
+      toast.error("Reset password failed:", err);
     },
   });
 

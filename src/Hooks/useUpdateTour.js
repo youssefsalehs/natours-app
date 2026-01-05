@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../api/axiosconfig";
 import useAuth from "../Store/useAuth";
+import toast from "react-hot-toast";
 
 export default function useUpdateTour(tourId) {
   const queryClient = useQueryClient();
@@ -16,14 +17,14 @@ export default function useUpdateTour(tourId) {
       return res.data;
     },
 
-    onSuccess: (data) => {
-      console.log("Tour updated:", data);
+    onSuccess: () => {
+      toast.success("Tour is updated");
       queryClient.invalidateQueries(["tours"]);
       queryClient.invalidateQueries(["tour", tourId]);
     },
 
     onError: (err) => {
-      console.error("Update tour failed:", err);
+      toast.error("Update tour failed:", err);
     },
   });
 }

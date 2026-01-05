@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../api/axiosconfig";
 import useAuth from "../Store/useAuth";
+import toast from "react-hot-toast";
 
 export default function useSuspendReview(id) {
   const queryClient = useQueryClient();
@@ -15,13 +16,13 @@ export default function useSuspendReview(id) {
       return res.data;
     },
 
-    onSuccess: (data) => {
-      console.log("review suspended:", data);
+    onSuccess: () => {
+      toast.success("review is suspended");
       queryClient.invalidateQueries(["reviews"]);
     },
 
     onError: (err) => {
-      console.error("suspend review failed:", err);
+      toast.error("suspend review failed:", err);
     },
   });
 }

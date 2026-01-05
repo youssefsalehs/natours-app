@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../api/axiosconfig";
 import useAuth from "../Store/useAuth";
+import toast from "react-hot-toast";
 
 export default function useSuspendUser(id) {
   const queryClient = useQueryClient();
@@ -15,13 +16,13 @@ export default function useSuspendUser(id) {
       return res.data;
     },
 
-    onSuccess: (data) => {
-      console.log("user suspended:", data);
+    onSuccess: () => {
+      toast.success("user is suspended");
       queryClient.invalidateQueries(["users"]);
     },
 
     onError: (err) => {
-      console.error("suspend user failed:", err);
+      toast.error("suspend user failed:", err);
     },
   });
 }

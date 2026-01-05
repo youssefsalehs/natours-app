@@ -1,11 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
 import api from "../api/axiosconfig";
 import useAuth from "../Store/useAuth";
+import toast from "react-hot-toast";
 function useEditMe(setIsEdit, setPreview) {
   const token = useAuth((state) => state.token);
   const setUser = useAuth((state) => state.setUser);
   async function updateMe(data) {
-    console.log(data);
     const res = await api.patch("/users/updateMe", data, {
       headers: {
         "Content-Type": "multipart/form-data",
@@ -17,13 +17,13 @@ function useEditMe(setIsEdit, setPreview) {
   const { mutate, isPending } = useMutation({
     mutationFn: updateMe,
     onSuccess: (result) => {
-      console.log(result);
       setUser(result.data.updateUser);
       setPreview(result.data.updateUser.photo.url);
       setIsEdit(false);
+      toast.success("profile is updated");
     },
     onError: (err) => {
-      console.log(err);
+      toast.log(err);
     },
   });
 

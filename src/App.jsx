@@ -27,17 +27,19 @@ import AddTour from "./pages/Dashboard/AddTour";
 import EditTour from "./pages/Dashboard/EditTour";
 import DashboardNotFound from "./pages/DashboardNotFound/DashboardNotFound";
 import useAuth from "./Store/useAuth";
+import { Toaster } from "react-hot-toast";
+
 function App() {
   const queryClient = new QueryClient();
   const darkMode = useMyTheme((state) => state.darkMode);
   const theme = getTheme(darkMode);
   const user = useAuth((state) => state.user);
-
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <BrowserRouter>
           <CssBaseline />
+          <Toaster />
           <ToggleThemeBtn />
           <Routes>
             <Route path="/" element={<AppLayout />}>

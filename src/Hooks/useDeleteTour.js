@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import api from "../api/axiosconfig";
 import useAuth from "../Store/useAuth";
+import toast from "react-hot-toast";
 
 export default function useDeleteTour(id, setOpen) {
   const queryClient = useQueryClient();
@@ -16,13 +17,13 @@ export default function useDeleteTour(id, setOpen) {
     },
 
     onSuccess: () => {
-      console.log("Tour is successfully deleted!");
+      toast.success("Tour is successfully deleted!");
       queryClient.invalidateQueries(["tours"]);
       setOpen(false);
     },
 
     onError: (err) => {
-      console.error("Delete tour failed:", err);
+      toast.error("Delete tour failed:", err);
     },
   });
 }
