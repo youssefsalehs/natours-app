@@ -26,6 +26,7 @@ function Sidebar() {
             justifyContent: "flex-start",
             color: "inherit",
             gap: 2,
+            borderRadius: 0,
             fontWeight: "bold",
             "&.active": {
               bgcolor: theme.palette.primary.main,

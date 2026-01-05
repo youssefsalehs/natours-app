@@ -45,40 +45,43 @@ function TourDetailsPage() {
       <div className="w-full py-16 px-4 md:px-8">
         <ImgSlide imgs={tour.images} />
       </div>
-      <Box
-        sx={{
-          py: 8,
-          px: { xs: 4, md: 8 },
-          backgroundImage: `url(${tour?.imageCover?.url})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <Stack
-          direction="row"
-          spacing={3}
+      <Box sx={{ bgcolor: "background.paper" }}>
+        <Typography className="  px-2 md:px-8 py-8 !font-bold !text-2xl">
+          Reviews
+        </Typography>
+        <Box
           sx={{
-            overflowX: "auto",
+            py: 6,
+            px: { xs: 4, md: 8 },
+            display: "flex",
+            flexDirection: { xs: "column-reverse", md: "row" },
+            gap: 3,
             alignItems: "stretch",
-            "&::-webkit-scrollbar": {
-              display: "none",
-            },
-            scrollbarWidth: "none",
           }}
         >
-          {tour?.reviews.map((review) => (
-            <ReviewCard key={review.id} review={review} />
-          ))}
-        </Stack>
-      </Box>
+          <div className="h-[60vh] flex flex-col gap-2 overflow-y-auto w-[100%] md:w-[50%] hide-scrollbar">
+            {tour?.reviews?.map((review) => (
+              <div key={review.id}>
+                <ReviewCard review={review} />
+              </div>
+            ))}
+          </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 px-4 md:px-8 py-8">
-        <Typography className="col-span-1 lg:col-span-2 !font-bold !text-2xl">
-          Timeline & Review
-        </Typography>
-        <TimeLine stops={tour.locations} />
-        <ReviewForm />
-      </div>
+          <Box
+            sx={{
+              flexBasis: { md: "50%" },
+              flexShrink: 0,
+              width: "100%",
+            }}
+          >
+            <ReviewForm />
+          </Box>
+        </Box>
+      </Box>
+      <Typography className=" px-2 md:px-8 py-8 !font-bold !text-2xl">
+        Timeline
+      </Typography>
+      <TimeLine stops={tour.locations} />
 
       <Box
         sx={{
@@ -92,7 +95,7 @@ function TourDetailsPage() {
           bgcolor: "background.paper",
           boxShadow:
             "0px 4px 20px rgba(0,0,0,0.08), 0px 8px 16px rgba(0,0,0,0.04)",
-          py: 8,
+          py: 6,
           px: 18,
           borderRadius: 4,
           alignItems: "center",

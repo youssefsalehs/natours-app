@@ -10,16 +10,19 @@ import {
 } from "@mui/material";
 import { FaRegStar, FaStar } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import useAuth from "../../Store/useAuth";
 
 export default function ReviewCard({ review }) {
+  const user = useAuth((state) => state.user);
   return (
     <Card
       variant="outlined"
       sx={{
-        minWidth: 400,
-        height: 260,
         display: "flex",
         flexDirection: "column",
+        bgcolor: "secondary.dark",
+        color: "primary.contrastText",
+        boxShadow: 4,
       }}
     >
       <CardContent sx={{ flexGrow: 1 }}>
@@ -44,14 +47,16 @@ export default function ReviewCard({ review }) {
         <Typography variant="body2">{review.review}</Typography>
       </CardContent>
 
-      <CardActions sx={{ justifyContent: "flex-end", px: 2 }}>
-        <Button size="small" variant="contained" color="primary">
-          Edit
-        </Button>
-        <Button size="small" variant="contained" color="primary">
-          Delete
-        </Button>
-      </CardActions>
+      {review?.user === user?._id && (
+        <CardActions sx={{ justifyContent: "flex-end", px: 2 }}>
+          <Button size="small" variant="contained" color="primary">
+            Edit
+          </Button>
+          <Button size="small" variant="contained" color="primary">
+            Delete
+          </Button>
+        </CardActions>
+      )}
     </Card>
   );
 }

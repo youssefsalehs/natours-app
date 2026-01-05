@@ -64,6 +64,7 @@ function ProfileSidebar() {
             width: "100%",
             py: 2,
             textAlign: "left",
+            borderRadius: 0,
             gap: 2,
             color: "inherit",
             justifyContent: "flex-start",
