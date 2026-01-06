@@ -23,7 +23,7 @@ function useEditMe(setIsEdit, setPreview) {
       toast.success("profile is updated");
     },
     onError: (err) => {
-      toast.log(err);
+      toast.error(err);
     },
   });
 

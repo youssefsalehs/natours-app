@@ -101,14 +101,7 @@ export default function EditTour() {
             }
           }
 
-          updateTourMutation.mutate(formData, {
-            onSuccess: () => {
-              alert("Tour updated successfully!");
-            },
-            onError: (err) => {
-              console.error("Update failed:", err);
-            },
-          });
+          updateTourMutation.mutate(formData);
         }}
       >
         {({
