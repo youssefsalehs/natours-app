@@ -32,6 +32,7 @@ export const getTheme = (darkMode) =>
       },
 
       divider: darkMode ? "#37474f" : "#e0e0e0",
+      contrast: darkMode ? "#222222" : "#f2eff5",
 
       info: { main: darkMode ? "#4fc3f7" : "#0288d1" },
       success: { main: darkMode ? "#66bb6a" : "#2e7d32" },
