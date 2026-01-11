@@ -109,6 +109,13 @@ const addTourvalidationSchema = Yup.object().shape({
     })
   ),
 });
+const reviewSchema = Yup.object().shape({
+  review: Yup.string().required("review is Required"),
+  rating: Yup.string()
+    .min(1, "raing must be at least 8 characters long")
+    .max(5, "raing cannot be longer than 50 characters")
+    .required("rating is a required field"),
+});
 export {
   LoginSchema,
   signupSchema,
@@ -117,4 +124,5 @@ export {
   validationSchema,
   editTourValidationSchema,
   addTourvalidationSchema,
+  reviewSchema,
 };

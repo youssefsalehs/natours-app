@@ -6,10 +6,27 @@ import {
   Typography,
   useTheme,
 } from "@mui/material";
+import { FaSpinner } from "react-icons/fa6";
+import { useFormik } from "formik";
+import { reviewSchema } from "../../constants/schemas";
+import useAddReview from "../../Hooks/useAddReview";
 
-function ReviewForm() {
+function ReviewForm({ tourId }) {
   const theme = useTheme();
+  const { mutate, isPending } = useAddReview(tourId);
 
+  const formik = useFormik({
+    validationSchema: reviewSchema,
+    enableReinitialize: true,
+    initialValues: {
+      review: "",
+      rating: 0,
+    },
+    onSubmit: (data, { resetForm }) => {
+      mutate({ ...data, tour: tourId });
+      resetForm();
+    },
+  });
   return (
     <Box
       sx={{
@@ -20,6 +37,7 @@ function ReviewForm() {
     >
       <Box
         component="form"
+        onSubmit={formik.handleSubmit}
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -42,13 +60,23 @@ function ReviewForm() {
           Review Form
         </Typography>
         <Rating
-          name="review-rating"
+          name="rating"
           sx={{ alignSelf: "center" }}
+          value={formik.values.rating}
+          onChange={(event, newValue) =>
+            formik.setFieldValue("rating", newValue)
+          }
           size="large"
         />
         <TextField
           fullWidth
           label="Your Review"
+          name="review"
+          value={formik.values.review}
+          onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
+          error={formik.touched.review && Boolean(formik.errors.review)}
+          helperText={formik.touched.review && formik.errors.review}
           variant="standard"
           InputLabelProps={{
             style: {
@@ -70,6 +98,7 @@ function ReviewForm() {
         <Button
           type="submit"
           variant="contained"
+          disabled={isPending}
           sx={{
             alignSelf: "flex-end",
             backgroundColor: theme.palette.secondary.dark,

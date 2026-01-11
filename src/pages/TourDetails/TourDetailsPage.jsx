@@ -16,6 +16,7 @@ import ErrorPage from "../ErrorPage/ErrorPage";
 
 function TourDetailsPage() {
   const token = useAuth((store) => store.token);
+  const user = useAuth((store) => store.user);
   const { id } = useParams();
   const { data, isLoading, isError, error } = useFetchTour(id);
   const tour = data?.data?.data;
@@ -74,7 +75,7 @@ function TourDetailsPage() {
               width: "100%",
             }}
           >
-            <ReviewForm />
+            <ReviewForm tourId={id} />
           </Box>
         </Box>
       </Box>
@@ -83,61 +84,63 @@ function TourDetailsPage() {
       </Typography>
       <TimeLine stops={tour.locations} />
 
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", md: "row" },
-          gap: { xs: 4, md: 0 },
-          width: "90%",
-          mx: "auto",
-          mb: 5,
-          justifyContent: "space-between",
-          bgcolor: "background.paper",
-          boxShadow:
-            "0px 4px 20px rgba(0,0,0,0.08), 0px 8px 16px rgba(0,0,0,0.04)",
-          py: 6,
-          px: 18,
-          borderRadius: 4,
-          alignItems: "center",
-          textAlign: { xs: "center", md: "left" },
-        }}
-      >
-        <div className="flex items-center justify-center md:justify-start ">
-          <img
-            src={Img4}
-            alt=""
-            className="w-[80px] h-[80px] md:w-[120px] md:h-[120px] z-[3] rounded-full border-2 border-white"
-          />
-        </div>
-
-        <Box sx={{ flex: 1, px: { xs: 2, md: 4 } }}>
-          <Typography variant="h6" sx={{ fontWeight: "bold", mb: 1 }}>
-            What are you waiting for?
-          </Typography>
-          <Typography>
-            5 days. 1 adventure. Infinite memories. Make it yours today!
-          </Typography>
-        </Box>
-
-        <Button
-          type="submit"
-          variant="contained"
+      {tour.reviews?.every((r) => r.user._id !== user._id) && (
+        <Box
           sx={{
-            mt: { xs: 3, md: 0 },
-            borderRadius: "30px",
-            backgroundColor: theme.palette.secondary.dark,
-            color: theme.palette.primary.contrastText,
-            "&:hover": {
-              backgroundColor: theme.palette.secondary.main,
-            },
-            px: 4,
-            py: 1.5,
+            display: "flex",
+            flexDirection: { xs: "column", md: "row" },
+            gap: { xs: 4, md: 0 },
+            width: "90%",
+            mx: "auto",
+            mb: 5,
+            justifyContent: "space-between",
+            bgcolor: "background.paper",
+            boxShadow:
+              "0px 4px 20px rgba(0,0,0,0.08), 0px 8px 16px rgba(0,0,0,0.04)",
+            py: 6,
+            px: 18,
+            borderRadius: 4,
+            alignItems: "center",
+            textAlign: { xs: "center", md: "left" },
           }}
-          onClick={() => handleCheckout(tour._id)}
         >
-          Book Tour Now
-        </Button>
-      </Box>
+          <div className="flex items-center justify-center md:justify-start ">
+            <img
+              src={Img4}
+              alt=""
+              className="w-[80px] h-[80px] md:w-[120px] md:h-[120px] z-[3] rounded-full border-2 border-white"
+            />
+          </div>
+
+          <Box sx={{ flex: 1, px: { xs: 2, md: 4 } }}>
+            <Typography variant="h6" sx={{ fontWeight: "bold", mb: 1 }}>
+              What are you waiting for?
+            </Typography>
+            <Typography>
+              5 days. 1 adventure. Infinite memories. Make it yours today!
+            </Typography>
+          </Box>
+
+          <Button
+            type="submit"
+            variant="contained"
+            sx={{
+              mt: { xs: 3, md: 0 },
+              borderRadius: "30px",
+              backgroundColor: theme.palette.secondary.dark,
+              color: theme.palette.primary.contrastText,
+              "&:hover": {
+                backgroundColor: theme.palette.secondary.main,
+              },
+              px: 4,
+              py: 1.5,
+            }}
+            onClick={() => handleCheckout(tour._id)}
+          >
+            Book Tour Now
+          </Button>
+        </Box>
+      )}
     </div>
   );
 }
